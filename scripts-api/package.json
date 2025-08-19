@@ -1,0 +1,19 @@
+{
+  "name": "blanxer-playwright-api",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/src/index.js",
+    "dev": "tsx src/index.ts",
+    "order:admin": "node dist/scripts/blanxer-create-order.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.3.0",
+    "tsx": "^4.20.4",
+    "typescript": "^5.9.2"
+  }
+}
