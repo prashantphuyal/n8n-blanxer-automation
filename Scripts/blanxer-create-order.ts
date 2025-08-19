@@ -86,103 +86,6 @@ async function openCreateOrderFresh(page: Page) {
   }
 }
 
-// async function searchOrCreateCustomer(page: Page, req: OrderRequest) {
-//   const orderDlg = page.getByRole("dialog", { name: /Create Order/i });
-
-//   // 1) Make sure the phone search box is visible (fresh modal)
-//   const phoneBox = orderDlg.getByRole("textbox", { name: "Search by phone" });
-//   if (!(await phoneBox.count())) {
-//     // stale modal → close and reopen
-//     await orderDlg
-//       .getByRole("button", { name: /Cancel|Close/i })
-//       .click()
-//       .catch(() => {});
-//     await openCreateOrderFresh(page);
-//   }
-
-//   // 2) Search by phone (use the phone from req)
-//   const dlg = page.getByRole("dialog", { name: /Create Order/i });
-//   const phone = dlg.getByRole("textbox", { name: "Search by phone" });
-//   await phone.click();
-//   await phone.fill(req.customer.phone);
-//   await dlg.getByRole("button", { name: "Search Customer" }).click();
-
-//   // 3) If “Create Customer” modal appears, fill & create (your codegen flow)
-//   const createDlg = page.getByRole("dialog", { name: /Create Customer/i });
-//   if (await createDlg.count()) {
-//     const fullName = req.customer.name || `Customer ${req.customer.phone}`;
-//     await createDlg.getByRole("textbox", { name: "Full Name" }).click();
-//     await createDlg.getByRole("textbox", { name: "Full Name" }).fill(fullName);
-
-//     const emailBox = createDlg.getByRole("textbox", { name: /Email/i });
-//     if (req.customer.email && (await emailBox.count())) {
-//       await emailBox.fill(req.customer.email);
-//     }
-
-//     await createDlg.getByRole("button", { name: "+ Create Customer" }).click();
-
-//     // be sure the overlay goes away before the next step
-//     await createDlg.waitFor({ state: "detached", timeout: 15000 });
-//     return;
-//   }
-
-//   // 4) Otherwise, if a “Select Customer” result button exists, click it
-//   const selectBtn = dlg
-//     .getByRole("button", {
-//       name: /Select Customer|Select|Choose|Use Customer/i,
-//     })
-//     .first();
-//   if (await selectBtn.count()) {
-//     await selectBtn.click();
-//     return;
-//   }
-
-//   // 5) If neither appeared, assume customer is already attached and proceed
-// } first try
-
-// async function searchOrCreateCustomer(page: Page, req: OrderRequest) {
-//   const dlg = page.getByRole("dialog", { name: /Create Order/i });
-
-//   // ensure phone textbox exists and is focused
-//   const phone = dlg.getByRole("textbox", { name: /Search by phone/i });
-//   await phone.waitFor({ timeout: 15000 });
-//   await phone.fill(req.customer.phone);
-//   await dlg.getByRole("button", { name: /Search Customer/i }).click();
-
-//   const createDlg = page.getByRole("dialog", { name: /Create Customer/i });
-//   const selectExisting = dlg
-//     .getByRole("button", { name: /Select Customer|Use Customer|Select/i })
-//     .first();
-
-//   // wait for one of the three outcomes
-//   await Promise.race([
-//     createDlg.waitFor({ timeout: 7000 }).catch(() => {}),
-//     selectExisting.waitFor({ timeout: 7000 }).catch(() => {}),
-//     dlg
-//       .getByText(/Customer|Selected/i)
-//       .waitFor({ timeout: 7000 })
-//       .catch(() => {}),
-//   ]);
-
-//   // create-new flow
-//   if (await createDlg.isVisible().catch(() => false)) {
-//     const fullName = req.customer.name || `Customer ${req.customer.phone}`;
-//     await createDlg.getByRole("textbox", { name: /Full Name/i }).fill(fullName);
-//     const emailBox = createDlg.getByRole("textbox", { name: /Email/i });
-//     if (req.customer.email && (await emailBox.count())) {
-//       await emailBox.fill(req.customer.email);
-//     }
-//     await createDlg
-//       .getByRole("button", { name: /\+ Create Customer/i })
-//       .click();
-//     await createDlg.waitFor({ state: "detached", timeout: 15000 });
-//   } else if (await selectExisting.count()) {
-//     await selectExisting.click();
-//   }
-
-//   // critical: clear focus/portals so the phone input doesn’t intercept clicks
-// }  second try
-
 //  create customer
 
 function onlyDigits(s: string) {
@@ -243,7 +146,6 @@ async function focusAndEnablePhone(dlg: Locator, page: Page) {
   throw new Error("Phone field never became editable after click.");
 }
 
-// export async function searchOrCreateCustomer(page: Page, req: OrderRequest) {
 //   const dlg = page.getByRole("dialog", { name: /Create Order/i });
 //   const want = digits(req.customer.phone);
 
@@ -567,17 +469,6 @@ async function addProducts(page: Page, items: OrderItem[]) {
     .first()
     .waitFor({ timeout: 10000 });
 }
-
-// async function readTotalSafe(page: Page) {
-//   return (
-//     (await page
-//       .getByText(/(Grand )?Total/i)
-//       .locator(':has-text("Rs")')
-//       .first()
-//       .textContent()
-//       .catch(() => "")) || null
-//   );
-// }
 
 async function closeAnyOpenDropdown(page: Page) {
   const openList = page.locator(

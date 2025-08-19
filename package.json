@@ -12,7 +12,8 @@
     "analytics": "tsx scripts/blanxer-analytics.ts",
     "analytics:today": "tsx scripts/blanxer-analytics-today.ts",
     "order:admin": "tsx scripts/blanxer-create-order.ts",
-    "stock": "tsx scripts/blanxer-stock-check.ts"
+    "stock": "tsx scripts/blanxer-stock-check.ts",
+    "deploy:gh": "bash -lc 'git add -A && git commit -m \"${npm_config_m:-chore: update}\" || true; git push -u origin HEAD'"
     
   },
   "keywords": [],
