@@ -1,0 +1,28 @@
+{
+  "name": "playwright-vscode-automation",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "run": "tsx",
+    "pw": "playwright test",
+    "search": "tsx scripts/search-to-csv.ts",
+    "shot": "tsx scripts/daily-screenshot.ts",
+    "codegen": "playwright codegen",
+    "dash": "tsx scripts/blanxer-dashboard.ts",
+    "analytics": "tsx scripts/blanxer-analytics.ts",
+    "analytics:today": "tsx scripts/blanxer-analytics-today.ts",
+    "order:admin": "tsx scripts/blanxer-create-order.ts",
+    "stock": "tsx scripts/blanxer-stock-check.ts"
+    
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.54.2",
+    "@types/node": "^24.3.0",
+    "dotenv": "^17.2.1",
+    "tsx": "^4.20.4"
+  }
+}
